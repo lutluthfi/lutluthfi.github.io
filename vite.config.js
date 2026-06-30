@@ -5,4 +5,9 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   base: "https://lutluthfi.github.io/",
   plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });
