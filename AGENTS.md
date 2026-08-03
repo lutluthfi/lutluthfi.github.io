@@ -1,0 +1,25 @@
+# AGENTS.md
+
+Personal portfolio site (Arif Luthfiansyah). React 19 + Vite 8, plain JSX (no TypeScript), Tailwind v4 + shadcn/ui v4 (Radix Maia style, HugeIcons). ESM (`"type": "module"`).
+
+## Commands
+
+- `npm run dev` — Vite dev server
+- `npm run build` — build to `dist/`
+- `npm run preview` — preview the production build
+- `npm run lint` — ESLint (flat config in `eslint.config.js`)
+- `npm run deploy` — `gh-pages -d dist`, pushes built site to `gh-pages` branch
+- No test framework or test script exists. Verify changes with `npm run lint && npm run build`.
+
+## Layout
+
+- Single page, no router. `src/App.jsx` renders `src/components/HomeView.jsx`, which contains the whole profile/home UI (nav + profile card + projects) inline with shadcn `Card`/`Button`/`Badge`.
+- `src/components/NavigationBar.jsx` and `HeroBanner.jsx` exist but are NOT imported/used anywhere — don't assume they're wired in.
+- `src/components/ui/*` — generated shadcn components. `src/lib/utils.js` exports `cn()`. `@/*` maps to `src/*` (Vite alias in `vite.config.js` + `jsconfig.json`).
+- Tailwind v4 is CSS-first: no `tailwind.config.js`. All theme/token config lives in `src/index.css` (`@import "tailwindcss"`, `@theme inline`, `:root`/`.dark` oklch tokens). Follow shadcn skill conventions (semantic colors, `size-*`, `gap-*`, `cn()`).
+
+## Deployment gotchas
+
+- GitHub Pages project site; `vite.config.js` sets `base: "/lutluthfi.github.io/"`. Do not change or the site breaks.
+- `.github/` is listed in `.gitignore`, so the `deploy.yml` workflow is local-only and never runs in CI. Deploying is manual via `npm run deploy` (targets the `gh-pages` branch). Note the workflow's `on: push: branches: [main]` won't match the default `master` branch anyway.
+- `dist/` is committed to git and currently stale (built when the base was a custom domain). Always run `npm run build` before `npm run deploy`.
