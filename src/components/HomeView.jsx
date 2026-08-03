@@ -35,7 +35,7 @@ const workOfExperiences = [
 
 export default function ProfileCard() {
   return (
-    <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4">
+    <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4 max-[500px]:px-5">
       <div className="w-full max-w-2xl space-y-4">
         {/* Profile card */}
         <Card className="rounded-3xl shadow-sm border-none px-8 py-8">
