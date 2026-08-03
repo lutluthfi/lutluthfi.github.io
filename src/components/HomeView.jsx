@@ -39,14 +39,14 @@ export default function ProfileCard() {
       <div className="w-full max-w-2xl space-y-4">
         {/* Profile card */}
         <Card className="rounded-3xl shadow-sm border-none px-8 py-8">
-          <div className="max-[400px]:flex-col-reverse max-[400px]:items-start flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2 text-zinc-500 font-medium text-sm sm:text-base">
               <span className="h-2 w-2 rounded-full bg-zinc-400" />
               iOS Engineer
             </div>
             <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-xs font-bold tracking-wide rounded-full px-4 py-2 gap-2">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              AVAILABLE FOR WORK
+              OPEN TO WORK
             </Badge>
           </div>
 
