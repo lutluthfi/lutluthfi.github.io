@@ -8,7 +8,7 @@ import {
   BookOpenText,
   CircleUserRound,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -153,9 +153,29 @@ function SectionCard({ id, title, items }) {
 }
 
 export default function ProfileCard() {
-  const [active, setActive] = useState("briefcase");
+  const [active, setActive] = useState("user");
   const tabClass = (id) =>
     `h-11 w-11 rounded-full ${id === active ? "bg-zinc-100 hover:bg-zinc-200" : "text-zinc-400 hover:text-zinc-900"}`;
+  useEffect(() => {
+    const map = {
+      profile: "user",
+      "my-experiences": "briefcase",
+      "my-projects": "hammer",
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && map[e.target.id]) setActive(map[e.target.id]);
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" },
+    );
+    ["profile", "my-experiences", "my-projects"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
   return (
     <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4 max-[500px]:px-5">
       <div className="w-full max-w-2xl space-y-4">
@@ -212,7 +232,7 @@ export default function ProfileCard() {
         {/* My experiences */}
         <SectionCard
           id="my-experiences"
-          title="My experiences"
+          title="My Experiences"
           items={myExperiences}
         />
 
