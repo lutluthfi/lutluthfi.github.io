@@ -154,6 +154,7 @@ function SectionCard({ id, title, items }) {
 
 export default function ProfileCard() {
   const [active, setActive] = useState("user");
+  const [copied, setCopied] = useState(false);
   const tabClass = (id) =>
     `h-11 w-11 rounded-full ${id === active ? "bg-zinc-100 hover:bg-zinc-200" : "text-zinc-400 hover:text-zinc-900"}`;
   useEffect(() => {
@@ -178,7 +179,7 @@ export default function ProfileCard() {
   }, []);
   return (
     <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4 max-[500px]:px-5">
-      <div className="w-full max-w-2xl space-y-4">
+      <div className="w-full max-w-[600px] space-y-4">
         {/* Profile card */}
         <Card
           id="profile"
@@ -215,6 +216,11 @@ export default function ProfileCard() {
                 <Button
                   variant="outline"
                   className="rounded-full border-zinc-200 px-5 py-3 h-auto text-sm font-semibold hover:bg-zinc-50"
+                  onClick={() => {
+                    navigator.clipboard.writeText("lutluthfiansyah@gmail.com");
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
                 >
                   <Copy className="h-4 w-4 mr-1" />
                   Copy Email
@@ -298,6 +304,11 @@ export default function ProfileCard() {
             Hire Me
           </Button>
         </Card>
+        {copied && (
+          <div className="fixed bottom-[116px] left-1/2 -translate-x-1/2 z-20 rounded-full bg-blue-600 text-white text-sm font-medium px-4 py-2 shadow-lg">
+            Copied!
+          </div>
+        )}
       </div>
     </div>
   );
