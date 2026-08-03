@@ -99,7 +99,7 @@ export default function ProfileCard() {
                 className="rounded-2xl border-none shadow-sm px-5 py-4 flex flex-row items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-4">
-                  {p.icon}
+                  <span className="max-[500px]:hidden">{p.icon}</span>
                   <div>
                     <div className="font-semibold text-zinc-900 text-lg">{p.name}</div>
                     <div className="text-zinc-400 text-sm">{p.tags}</div>
