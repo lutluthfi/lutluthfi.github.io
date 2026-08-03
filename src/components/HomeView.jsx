@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-const workOfExperiences = [
+const myExperiences = [
   {
     name: "Stockbit",
     duration: "Start on May 2026 - Present",
@@ -160,7 +160,7 @@ export default function ProfileCard() {
     <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4 max-[500px]:px-5">
       <div className="w-full max-w-2xl space-y-4">
         {/* Profile card */}
-        <Card className="rounded-3xl shadow-sm border-none px-8 py-8">
+        <Card id="profile" className="rounded-3xl shadow-sm border-none px-8 py-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2 text-zinc-500 font-medium text-sm sm:text-base">
               <span className="h-2 w-2 rounded-full bg-zinc-400" />
@@ -206,8 +206,8 @@ export default function ProfileCard() {
           </div>
         </Card>
 
-        {/* Work of experiences */}
-        <SectionCard title="Work of experiences" items={workOfExperiences} />
+        {/* My experiences */}
+        <SectionCard id="my-experiences" title="My experiences" items={myExperiences} />
 
         {/* My Projects */}
         <SectionCard id="my-projects" title="My Projects" items={projects} />
@@ -215,18 +215,26 @@ export default function ProfileCard() {
         {/* Navbar */}
         <Card className="sticky bottom-4 z-10 rounded-full shadow-lg border-none flex flex-row items-center justify-between px-6 py-4">
           <Button
-            variant="ghost"
+            variant={active === "user" ? "secondary" : "ghost"}
             size="icon"
-            className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900"
+            className={tabClass("user")}
+            onClick={() => {
+              setActive("user");
+              document.getElementById("profile")?.scrollIntoView({ behavior: "smooth" });
+            }}
           >
-            <CircleUserRound className="h-5 w-5" />
+            <CircleUserRound className={`h-5 w-5 ${active === "user" ? "text-zinc-900" : ""}`} />
           </Button>
-          <div className="max-[400px]:flex-1 max-[400px]:justify-between flex items-center gap-2">
             <Button
               variant={active === "briefcase" ? "secondary" : "ghost"}
               size="icon"
               className={tabClass("briefcase")}
-              onClick={() => setActive("briefcase")}
+              onClick={() => {
+                setActive("briefcase");
+                document
+                  .getElementById("my-experiences")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               <Briefcase
                 className={`h-5 w-5 ${active === "briefcase" ? "text-zinc-900" : ""}`}
@@ -254,7 +262,6 @@ export default function ProfileCard() {
             >
               <BookOpenText className="h-5 w-5" />
             </Button>
-          </div>
           <Button className="max-[400px]:hidden rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold">
             <Plus className="h-4 w-4 mr-1" />
             Hire Me
