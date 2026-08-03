@@ -1,4 +1,4 @@
-import { Home, User, CreditCard, ShoppingBag, Plus, Copy, ChevronRight, ArrowRight } from "lucide-react";
+import { ShoppingBag, Plus, Copy, ChevronRight, ArrowRight, Briefcase, Hammer, BookOpenText, CircleUserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -115,16 +115,16 @@ export default function ProfileCard() {
         <Card className="sticky bottom-4 z-10 rounded-full shadow-lg border-none flex flex-row items-center justify-between px-6 py-4">
           <div className="max-[400px]:flex-1 max-[400px]:justify-between flex items-center gap-2">
             <Button variant="secondary" size="icon" className="h-11 w-11 rounded-full bg-zinc-100 hover:bg-zinc-200">
-              <Home className="h-5 w-5 text-zinc-900" />
+              <Briefcase className="h-5 w-5 text-zinc-900" />
             </Button>
             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900">
-              <User className="h-5 w-5" />
+              <Hammer className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900">
-              <CreditCard className="h-5 w-5" />
+              <BookOpenText className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900">
-              <ShoppingBag className="h-5 w-5" />
+              <CircleUserRound className="h-5 w-5" />
             </Button>
           </div>
           <Button className="max-[400px]:hidden rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold">
