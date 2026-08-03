@@ -1,4 +1,4 @@
-import { ShoppingBag, Plus, Copy, ChevronRight, ArrowRight, Briefcase, Hammer, BookOpenText, CircleUserRound } from "lucide-react";
+import { Plus, Copy, ChevronRight, ArrowRight, Briefcase, Hammer, BookOpenText, CircleUserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 const workOfExperiences = [
   {
     name: "Stockbit",
-    tags: "Start on May 2026 - Present",
+    duration: "Start on May 2026 - Present",
     icon: (
       <div className="h-12 w-12 rounded-full bg-gradient-to-br from-zinc-900 to-zinc-600 flex items-center justify-center ring-2 ring-white">
         <span className="text-white font-bold text-lg">S</span>
@@ -15,7 +15,7 @@ const workOfExperiences = [
   },
   {
     name: "tiket.com",
-    tags: "Start on May 2021 - May 2026 (5 years)",
+    duration: "Start on May 2021 - May 2026 (5 years)",
     icon: (
       <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center ring-2 ring-white">
         <span className="text-white font-bold text-lg">T</span>
@@ -24,14 +24,113 @@ const workOfExperiences = [
   },
   {
     name: "Nostra Technology",
-    tags: "Start on Sep 2019 - May 2021 (2 years)",
+    duration: "Start on Sep 2019 - May 2021 (2 years)",
     icon: (
       <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center ring-2 ring-white">
         <span className="text-white font-bold text-lg">N</span>
       </div>
     ),
   },
+  {
+    name: "Halo Ustadz [Freelance]",
+    duration: "Start on Sep 2019 - May 2021 (2 years)",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">N</span>
+      </div>
+    ),
+  }
 ];
+
+const projects = [
+  {
+    name: "Hopecardis",
+    tags: "Android · iOS · Flutter",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-pink-700 to-pink-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">H</span>
+      </div>
+    ),
+  },
+  {
+    name: "Ina HF Carmet",
+    tags: "Android · iOS · Flutter",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-amber-700 to-amber-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">I</span>
+      </div>
+    ),
+  },
+  {
+    name: "Usee TV GO",
+    tags: "iOS · UIKit · In App Purchase",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-violet-700 to-violet-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">T</span>
+      </div>
+    ),
+  },
+  {
+    name: "Halo Ustadz",
+    tags: "Android · VoIP · WebSocket",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-violet-700 to-violet-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">H</span>
+      </div>
+    ),
+  },
+];
+
+function Duration({ value }) {
+  const [from, to] = value.split(" - ");
+  const fromDate = from.replace("Start on ", "");
+  return (
+    <>
+      Start on <span className="font-semibold">{fromDate}</span>
+      <span className="max-[500px]:hidden"> - </span>
+      <span className="font-semibold max-[500px]:hidden">{to}</span>
+      <span className="hidden max-[500px]:inline">
+        <br />
+        Until <span className="font-semibold">{to}</span>
+      </span>
+    </>
+  );
+}
+
+function SectionCard({ id, title, items }) {
+  return (
+    <Card id={id} className="rounded-3xl border-none bg-zinc-200/60 shadow-none px-6 py-6">
+      <div className="flex items-center justify-between mb-4 px-2">
+        <div className="flex items-center gap-2 text-zinc-900 text-xl font-semibold">
+          <span className="h-2 w-2 rounded-full bg-zinc-400" />
+          {title}
+        </div>
+        <Button variant="secondary" className="rounded-full bg-white hover:bg-zinc-50 px-4 py-2.5 h-auto text-sm font-semibold text-zinc-900">
+          <span className="max-[400px]:hidden">View All</span>
+          <ArrowRight className="h-4 w-4 max-[400px]:ml-0 ml-1" />
+        </Button>
+      </div>
+
+      <div className="space-y-3">
+        {items.map((p) => (
+          <Card
+            key={p.name}
+            className="rounded-2xl border-none shadow-sm px-5 py-4 flex flex-row items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer"
+          >
+            <div className="flex items-center gap-4">
+              <span className="max-[500px]:hidden">{p.icon}</span>
+              <div>
+                <div className="font-semibold text-zinc-900 text-lg">{p.name}</div>
+                <div className="text-zinc-400 text-sm">{p.duration ? <Duration value={p.duration} /> : p.tags}</div>
+              </div>
+            </div>
+            <ChevronRight className="h-5 w-5 text-zinc-300" />
+          </Card>
+        ))}
+      </div>
+    </Card>
+  );
+}
 
 export default function ProfileCard() {
   return (
@@ -56,9 +155,7 @@ export default function ProfileCard() {
                 Hi, I'm Arif
               </h1>
               <p className="text-zinc-500 text-lg leading-relaxed mb-6">
-                iOS Engineer from Jakarta, ID
-                <br />
-                Passionate in the mobile app development
+                I am a mobile developer skilled in Swift, Kotlin, Flutter, Clean Architecture, and SOLID principle. Strong software engineering and like to learn, share, and craft remarkable and scalable software by following good software engineering disciples and principles that can supports product for long term business.
               </p>
               <div className="flex items-center gap-3">
                 <Button className="rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold">
@@ -80,36 +177,10 @@ export default function ProfileCard() {
         </Card>
 
         {/* Work of experiences */}
-        <Card className="rounded-3xl border-none bg-zinc-200/60 shadow-none px-6 py-6">
-          <div className="flex items-center justify-between mb-4 px-2">
-            <div className="flex items-center gap-2 text-zinc-900 text-xl font-semibold">
-              <span className="h-2 w-2 rounded-full bg-zinc-400" />
-              Work of experiences
-            </div>
-            <Button variant="secondary" className="rounded-full bg-white hover:bg-zinc-50 px-4 py-2.5 h-auto text-sm font-semibold text-zinc-900">
-              <span className="max-[400px]:hidden">View All</span>
-              <ArrowRight className="h-4 w-4 max-[400px]:ml-0 ml-1" />
-            </Button>
-          </div>
+        <SectionCard title="Work of experiences" items={workOfExperiences} />
 
-          <div className="space-y-3">
-            {workOfExperiences.map((p) => (
-              <Card
-                key={p.name}
-                className="rounded-2xl border-none shadow-sm px-5 py-4 flex flex-row items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="max-[500px]:hidden">{p.icon}</span>
-                  <div>
-                    <div className="font-semibold text-zinc-900 text-lg">{p.name}</div>
-                    <div className="text-zinc-400 text-sm">{p.tags}</div>
-                  </div>
-                </div>
-                <ChevronRight className="h-5 w-5 text-zinc-300" />
-              </Card>
-            ))}
-          </div>
-        </Card>
+        {/* My Projects */}
+        <SectionCard id="my-projects" title="My Projects" items={projects} />
 
         {/* Navbar */}
         <Card className="sticky bottom-4 z-10 rounded-full shadow-lg border-none flex flex-row items-center justify-between px-6 py-4">
@@ -117,7 +188,7 @@ export default function ProfileCard() {
             <Button variant="secondary" size="icon" className="h-11 w-11 rounded-full bg-zinc-100 hover:bg-zinc-200">
               <Briefcase className="h-5 w-5 text-zinc-900" />
             </Button>
-            <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900">
+            <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900" onClick={() => document.getElementById("my-projects")?.scrollIntoView({ behavior: "smooth" })}>
               <Hammer className="h-5 w-5" />
             </Button>
             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900">
