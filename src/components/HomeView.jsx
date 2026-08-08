@@ -42,7 +42,8 @@ const myExperiences = [
     ),
   },
   {
-    name: "Halo Ustadz [Freelance]",
+    name: "Halo Ustadz",
+    badge: "Freelance",
     duration: "Start on Sep 2019 - May 2021 (2 years)",
     icon: (
       <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center ring-2 ring-white">
@@ -92,19 +93,18 @@ const projects = [
 ];
 
 function Duration({ value }) {
-  const [from, to] = value.split(" - ");
-  const fromDate = from.replace("Start on ", "");
-  return (
-    <>
-      Start on <span className="font-semibold">{fromDate}</span>
-      <span className="max-[500px]:hidden"> - </span>
-      <span className="font-semibold max-[500px]:hidden">{to}</span>
-      <span className="hidden max-[500px]:inline">
-        <br />
-        Until <span className="font-semibold">{to}</span>
-      </span>
-    </>
-  );
+  const parts = value
+    .replace("Start on ", "")
+    .replace(" - ", " • ")
+    .replace("(", " • ")
+    .replace(")", "")
+    .split(" • ");
+  return parts.map((p, i) => (
+    <span key={i}>
+      {i > 0 && " • "}
+      <span className={p.includes("year") ? "" : "font-normal"}>{p}</span>
+    </span>
+  ));
 }
 
 function SectionCard({ id, title, items }) {
@@ -113,7 +113,7 @@ function SectionCard({ id, title, items }) {
       id={id}
       className="rounded-3xl border-none bg-zinc-200/60 shadow-none px-6 py-6"
     >
-      <div className="flex items-center justify-between mb-4 px-2">
+      <div className="flex items-center justify-between px-2">
         <div className="flex items-center gap-2 text-zinc-900 text-xl font-semibold">
           <span className="h-2 w-2 rounded-full bg-zinc-400" />
           {title}
@@ -191,7 +191,10 @@ export default function ProfileCard() {
               iOS Engineer
             </div>
             <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-xs font-bold tracking-wide rounded-full px-4 py-2 gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
               OPEN TO WORK
             </Badge>
           </div>
