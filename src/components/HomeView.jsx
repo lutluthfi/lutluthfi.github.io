@@ -131,7 +131,7 @@ function SectionCard({ id, title, items }) {
         {items.map((p) => (
           <Card
             key={p.name}
-            className="rounded-2xl border-none shadow-sm px-5 py-4 flex flex-row items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer"
+            className={`rounded-2xl border-none shadow-sm px-5 py-4 flex flex-row items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer ${p.duration?.includes("Present") ? "snake-border overflow-visible" : ""}`}
           >
             <div className="flex items-center gap-4">
               <span className="max-[500px]:hidden">{p.icon}</span>
