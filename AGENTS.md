@@ -23,3 +23,9 @@ Personal portfolio site (Arif Luthfiansyah). React 19 + Vite 8, plain JSX (no Ty
 - GitHub Pages **user site** served at `https://lutluthfi.github.io/` (repo is `lutluthfi.github.io`). `vite.config.js` sets `base: "/"` — do not change it or asset URLs break (a subpath base like `/lutluthfi.github.io/` 301-redirects to root and the app won't load).
 - `.github/` is listed in `.gitignore`, so the `deploy.yml` workflow is local-only and never runs in CI. Deploying is manual via `npm run deploy` (targets the `gh-pages` branch). Note the workflow's `on: push: branches: [main]` won't match the default `master` branch anyway.
 - `dist/` is committed to git and can go stale. Always run `npm run build` before deploying.
+
+## Working conventions
+
+- **Architecture navigation:** before grepping/searching the codebase, consult the graphify graph at `graphify-out/` (`graphify query "<question>"`, or read `GRAPH_REPORT.md`). Rebuild/refresh it with `graphify update .` when the code changes significantly. `graphify-out/` is gitignored (contains machine-local paths).
+- **External dependency docs:** before writing code that touches an external dependency, fetch its current docs via the `context7` MCP tool (`resolve-library-id` → `query-docs`). Fall back to `websearch` for libs not indexed on Context7.
+- **Icon gotcha:** `@hugeicons/core-free-icons` exports icon **data arrays**, not components — render them with `HugeiconsIcon` from `@hugeicons/react` (e.g. `<HugeiconsIcon icon={WhatsappIcon} size={16} />`). Rendering an array directly crashes React with a blank page.
