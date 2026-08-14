@@ -1,6 +1,4 @@
 import {
-  Plus,
-  Copy,
   ChevronRight,
   ArrowRight,
   Briefcase,
@@ -8,10 +6,21 @@ import {
   BookOpenText,
   CircleUserRound,
 } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  WhatsappIcon,
+  Linkedin01Icon,
+  Mail01Icon,
+} from "@hugeicons/core-free-icons";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
+const EMAIL = "lutluthfiansyah@gmail.com";
+const LINKEDIN_URL = "https://linkedin.com/in/arif-luthfiansyah";
+// ponytail: fill in your WhatsApp number, e.g. "https://wa.me/628123456789"
+const WHATSAPP_URL = "https://wa.me/6285216863058";
 
 const myExperiences = [
   {
@@ -154,7 +163,6 @@ function SectionCard({ id, title, items }) {
 
 export default function ProfileCard() {
   const [active, setActive] = useState("user");
-  const [copied, setCopied] = useState(false);
   const tabClass = (id) =>
     `h-11 w-11 rounded-full ${id === active ? "bg-zinc-100 hover:bg-zinc-200" : "text-zinc-400 hover:text-zinc-900"}`;
   useEffect(() => {
@@ -179,6 +187,11 @@ export default function ProfileCard() {
   }, []);
   return (
     <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4 max-[500px]:px-5">
+      <script
+        async
+        src="https://filytics-ewa3qg43f-arif-luthfiansyahs-projects.vercel.app/script.js"
+        data-website-id="186ac253-77a9-408c-a55f-e385437d76f5"
+      />
       <div className="w-full max-w-[600px] space-y-4">
         {/* Profile card */}
         <Card
@@ -211,22 +224,55 @@ export default function ProfileCard() {
                 software by following good software engineering disciples and
                 principles that can supports product for long term business.
               </p>
-              <div className="flex items-center gap-3">
-                <Button className="rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold">
-                  <Plus className="h-4 w-4 mr-1" />
-                  Hire Me
+              <div className="flex items-center gap-3 flex-wrap">
+                <Button
+                  asChild
+                  className="rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold"
+                >
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <HugeiconsIcon
+                      icon={WhatsappIcon}
+                      size={16}
+                      className="mr-1"
+                    />
+                    Contact Me
+                  </a>
                 </Button>
                 <Button
+                  asChild
                   variant="outline"
                   className="rounded-full border-zinc-200 px-5 py-3 h-auto text-sm font-semibold hover:bg-zinc-50"
-                  onClick={() => {
-                    navigator.clipboard.writeText("lutluthfiansyah@gmail.com");
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
-                  }}
                 >
-                  <Copy className="h-4 w-4 mr-1" />
-                  Copy Email
+                  <a href={`mailto:${EMAIL}`}>
+                    <HugeiconsIcon
+                      icon={Mail01Icon}
+                      size={16}
+                      className="mr-1"
+                    />
+                    Email Me
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded-full border-zinc-200 px-5 py-3 h-auto text-sm font-semibold hover:bg-zinc-50"
+                >
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <HugeiconsIcon
+                      icon={Linkedin01Icon}
+                      size={16}
+                      className="mr-1"
+                    />
+                    Reach Me
+                  </a>
                 </Button>
               </div>
             </div>
@@ -247,6 +293,10 @@ export default function ProfileCard() {
 
         {/* My Projects */}
         <SectionCard id="my-projects" title="My Projects" items={projects} />
+
+        <p className="text-center text-sm text-zinc-400">
+          Last updated: {__LAST_DEPLOYED__}
+        </p>
 
         {/* Navbar */}
         <Card className="sticky bottom-4 z-10 rounded-full shadow-lg border-none flex flex-row items-center justify-between px-6 py-4">
@@ -302,16 +352,20 @@ export default function ProfileCard() {
           >
             <BookOpenText className="h-5 w-5" />
           </Button>
-          <Button className="max-[400px]:hidden rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold">
-            <Plus className="h-4 w-4 mr-1" />
-            Hire Me
+          <Button
+            asChild
+            className="max-[400px]:hidden rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold"
+          >
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <HugeiconsIcon
+                icon={WhatsappIcon}
+                size={16}
+                className="mr-1"
+              />
+              Contact Me
+            </a>
           </Button>
         </Card>
-        {copied && (
-          <div className="fixed bottom-[116px] left-1/2 -translate-x-1/2 z-20 rounded-full bg-blue-600 text-white text-sm font-medium px-4 py-2 shadow-lg">
-            Copied!
-          </div>
-        )}
       </div>
     </div>
   );
