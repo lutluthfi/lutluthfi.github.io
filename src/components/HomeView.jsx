@@ -55,8 +55,8 @@ const myExperiences = [
     badge: "Freelance",
     duration: "Start on Sep 2019 - May 2021 (2 years)",
     icon: (
-      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-700 to-green-500 flex items-center justify-center ring-2 ring-white">
-        <span className="text-white font-bold text-lg">N</span>
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-orange-600 to-orange-400 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">H</span>
       </div>
     ),
   },
@@ -94,7 +94,7 @@ const projects = [
     name: "Halo Ustadz",
     tags: "Android · VoIP · WebSocket",
     icon: (
-      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-violet-700 to-violet-500 flex items-center justify-center ring-2 ring-white">
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-orange-600 to-orange-400 flex items-center justify-center ring-2 ring-white">
         <span className="text-white font-bold text-lg">H</span>
       </div>
     ),
