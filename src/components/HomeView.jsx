@@ -100,6 +100,45 @@ const projects = [
   },
 ];
 
+const writings = [
+  {
+    name: "Playing with workspace. Xcode multiple projects in one workspace",
+    tags: "iOS · iOS App Development · Xcode · Xcworkspace · Xcodeproj",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-sky-700 to-sky-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">P</span>
+      </div>
+    ),
+  },
+  {
+    name: "Playing with XcodeGen to avoid pbxproj file conflicts ⚠️",
+    tags: "Xcodegen · Xcodeproj · iOS · Software Development · Conflict",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-700 to-cyan-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">X</span>
+      </div>
+    ),
+  },
+  {
+    name: "Playing With Build Configuration in XCode to Separate Environment",
+    tags: "Xcode · Environment · Development · Staging · Production",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-teal-700 to-teal-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">B</span>
+      </div>
+    ),
+  },
+  {
+    name: "Playing with Subscript keyword to access Array safely",
+    tags: "Swift · Software Development · iOS · Xcode · Programming",
+    icon: (
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center ring-2 ring-white">
+        <span className="text-white font-bold text-lg">S</span>
+      </div>
+    ),
+  },
+];
+
 function Duration({ value }) {
   const parts = value
     .replace("Start on ", "")
@@ -115,7 +154,7 @@ function Duration({ value }) {
   ));
 }
 
-function SectionCard({ id, title, items }) {
+function SectionCard({ id, title, items, hideIcons }) {
   return (
     <Card
       id={id}
@@ -141,14 +180,27 @@ function SectionCard({ id, title, items }) {
             key={p.name}
             className={`rounded-2xl border-none shadow-sm px-5 py-4 flex flex-row items-center justify-between hover:bg-zinc-50 transition-colors cursor-pointer ${p.duration?.includes("Present") ? "snake-border overflow-visible" : ""}`}
           >
-            <div className="flex items-center gap-4">
-              <span className="max-[500px]:hidden">{p.icon}</span>
-              <div>
+            <div className="flex items-center gap-4 min-w-0">
+              {!hideIcons && <span className="max-[500px]:hidden">{p.icon}</span>}
+              <div className="min-w-0">
                 <div className="font-semibold text-zinc-900 text-lg">
                   {p.name}
                 </div>
                 <div className="text-zinc-400 text-sm">
-                  {p.duration ? <Duration value={p.duration} /> : p.tags}
+                  {p.duration ? (
+                    <Duration value={p.duration} />
+                  ) : (
+                    <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                      {p.tags.split(" · ").map((t) => (
+                        <Badge
+                          key={t}
+                          className="shrink-0 rounded-[4px] bg-zinc-200/60 text-zinc-600"
+                        >
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -285,14 +337,13 @@ export default function ProfileCard() {
         </Card>
 
         {/* My experiences */}
-        <SectionCard
-          id="my-experiences"
-          title="My Experiences"
-          items={myExperiences}
-        />
+        <SectionCard id="my-experiences" title="Experiences" items={myExperiences} />
 
         {/* My Projects */}
-        <SectionCard id="my-projects" title="My Projects" items={projects} />
+        <SectionCard id="my-projects" title="Projects" items={projects} />
+
+        {/* Writings */}
+        <SectionCard id="writings" title="Writings" items={writings} hideIcons />
 
         <p className="text-center text-sm text-zinc-400">
           Last updated: {__LAST_DEPLOYED__}
@@ -340,6 +391,11 @@ export default function ProfileCard() {
             variant="ghost"
             size="icon"
             className="h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900"
+            onClick={() => {
+              document
+                .getElementById("writings")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
           >
             <BookOpenText className="h-5 w-5" />
           </Button>
