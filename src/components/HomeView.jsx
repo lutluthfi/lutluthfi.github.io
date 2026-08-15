@@ -12,7 +12,6 @@ import {
   Linkedin01Icon,
   Mail01Icon,
 } from "@hugeicons/core-free-icons";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -162,29 +161,31 @@ function SectionCard({ id, title, items }) {
 }
 
 export default function ProfileCard() {
-  const [active, setActive] = useState("user");
-  const tabClass = (id) =>
-    `h-11 w-11 rounded-full ${id === active ? "bg-zinc-100 hover:bg-zinc-200" : "text-zinc-400 hover:text-zinc-900"}`;
-  useEffect(() => {
-    const map = {
-      profile: "user",
-      "my-experiences": "briefcase",
-      "my-projects": "hammer",
-    };
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && map[e.target.id]) setActive(map[e.target.id]);
-        });
-      },
-      { rootMargin: "-50% 0px -50% 0px" },
-    );
-    ["profile", "my-experiences", "my-projects"].forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
+  const tabClass = "h-11 w-11 rounded-full text-zinc-400 hover:text-zinc-900";
+  // TODO(scrollspy): active nav indicator doesn't track scroll position reliably
+  // (e.g. wrong section at the very top). Revisit before enabling.
+  // useEffect(() => {
+  //   const map = {
+  //     profile: "user",
+  //     "my-experiences": "briefcase",
+  //     "my-projects": "hammer",
+  //   };
+  //   const onScroll = () => {
+  //     let current = null;
+  //     for (const [id, key] of Object.entries(map)) {
+  //       const rect = document.getElementById(id)?.getBoundingClientRect();
+  //       if (rect && rect.top <= 0) current = key;
+  //     }
+  //     setActive(current ?? "user");
+  //   };
+  //   onScroll();
+  //   window.addEventListener("scroll", onScroll, { passive: true });
+  //   window.addEventListener("resize", onScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", onScroll);
+  //     window.removeEventListener("resize", onScroll);
+  //   };
+  // }, []);
   return (
     <div className="min-h-screen bg-zinc-100 flex justify-center py-10 px-4 max-[500px]:px-5">
       <script
@@ -227,7 +228,7 @@ export default function ProfileCard() {
               <div className="flex items-center gap-3 flex-wrap">
                 <Button
                   asChild
-                  className="rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold"
+                  className="rounded-full bg-[#25D366] hover:bg-[#1DA851] text-white px-5 py-3 h-auto text-sm font-semibold"
                 >
                   <a
                     href={WHATSAPP_URL}
@@ -258,8 +259,7 @@ export default function ProfileCard() {
                 </Button>
                 <Button
                   asChild
-                  variant="outline"
-                  className="rounded-full border-zinc-200 px-5 py-3 h-auto text-sm font-semibold hover:bg-zinc-50"
+                  className="rounded-full bg-[#0A66C2] hover:bg-[#004182] text-white px-5 py-3 h-auto text-sm font-semibold"
                 >
                   <a
                     href={LINKEDIN_URL}
@@ -301,49 +301,40 @@ export default function ProfileCard() {
         {/* Navbar */}
         <Card className="sticky bottom-4 z-10 rounded-full shadow-lg border-none flex flex-row items-center justify-between px-6 py-4">
           <Button
-            variant={active === "user" ? "secondary" : "ghost"}
+            variant="ghost"
             size="icon"
-            className={tabClass("user")}
+            className={tabClass}
             onClick={() => {
-              setActive("user");
               document
                 .getElementById("profile")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <CircleUserRound
-              className={`h-5 w-5 ${active === "user" ? "text-zinc-900" : ""}`}
-            />
+            <CircleUserRound className="h-5 w-5" />
           </Button>
           <Button
-            variant={active === "briefcase" ? "secondary" : "ghost"}
+            variant="ghost"
             size="icon"
-            className={tabClass("briefcase")}
+            className={tabClass}
             onClick={() => {
-              setActive("briefcase");
               document
                 .getElementById("my-experiences")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <Briefcase
-              className={`h-5 w-5 ${active === "briefcase" ? "text-zinc-900" : ""}`}
-            />
+            <Briefcase className="h-5 w-5" />
           </Button>
           <Button
-            variant={active === "hammer" ? "secondary" : "ghost"}
+            variant="ghost"
             size="icon"
-            className={tabClass("hammer")}
+            className={tabClass}
             onClick={() => {
-              setActive("hammer");
               document
                 .getElementById("my-projects")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <Hammer
-              className={`h-5 w-5 ${active === "hammer" ? "text-zinc-900" : ""}`}
-            />
+            <Hammer className="h-5 w-5" />
           </Button>
           <Button
             variant="ghost"
@@ -354,7 +345,7 @@ export default function ProfileCard() {
           </Button>
           <Button
             asChild
-            className="max-[400px]:hidden rounded-full bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-3 h-auto text-sm font-semibold"
+            className="max-[400px]:hidden rounded-full bg-[#25D366] hover:bg-[#1DA851] text-white px-5 py-3 h-auto text-sm font-semibold"
           >
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
               <HugeiconsIcon
